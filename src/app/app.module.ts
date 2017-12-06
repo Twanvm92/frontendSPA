@@ -18,6 +18,25 @@ import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.compon
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeService } from './recipes/recipe.service';
 import {DataStorageService} from "./shared/data-storage.service";
+import { AlertModule } from 'ngx-bootstrap';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { StoresComponent } from './stores/stores.component';
+import { StoreListComponent } from './stores/store-list/store-list.component';
+import { LetterFilterComponent } from './shared/letter-filter/letter-filter.component';
+import { StoreDetailComponent } from './stores/store-detail/store-detail.component';
+import { StoreEditComponent } from './stores/store-edit/store-edit.component';
+import { StoreItemComponent } from './stores/store-list/store-item/store-item.component';
+import { CityListComponent } from './cities/city-list/city-list.component';
+import { CitiesComponent } from './cities/cities.component';
+import { CityDetailComponent } from './cities/city-detail/city-detail.component';
+import { CityEditComponent } from './cities/city-edit/city-edit.component';
+import { CityItemComponent } from './cities/city-list/city-item/city-item.component';
+import { BeersComponent } from './beers/beers.component';
+import { BeerDetailComponent } from './beers/beer-detail/beer-detail.component';
+import { BeerListComponent } from './beers/beer-list/beer-list.component';
+import { BierItemComponent } from './beers/beer-list/bier-item/bier-item.component';
+import { BeerEditComponent } from './beers/beer-edit/beer-edit.component';
 
 @NgModule({
   declarations: [
@@ -31,14 +50,33 @@ import {DataStorageService} from "./shared/data-storage.service";
     ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    StoresComponent,
+    StoreListComponent,
+    LetterFilterComponent,
+    StoreDetailComponent,
+    StoreEditComponent,
+    StoreItemComponent,
+    CityListComponent,
+    CitiesComponent,
+    CityDetailComponent,
+    CityEditComponent,
+    CityItemComponent,
+    BeersComponent,
+    BeerDetailComponent,
+    BeerListComponent,
+    BierItemComponent,
+    BeerEditComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    AlertModule.forRoot(),
+    CollapseModule.forRoot()
   ],
   providers: [ShoppingListService, RecipeService, DataStorageService],
   bootstrap: [AppComponent]
