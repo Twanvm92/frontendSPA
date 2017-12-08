@@ -1,0 +1,21 @@
+/*.beer-card {*/
+  /*display: flex;*/
+  /*flex-direction: column;*/
+
+  /*padding: 2%;*/
+  /*flex: 1 16%;*/
+/*}*/
+
+.beer-image img {
+  max-width: 100%;
+  max-height: 200px;
+  display:block;
+  margin:auto;
+}
+
+.beer-info {
+  margin-top: auto;
+  text-align: center;
+}
+
+

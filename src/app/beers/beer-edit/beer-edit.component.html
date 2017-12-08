@@ -1,3 +1,86 @@
-<p>
-  beer-edit works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+      <input
+        type="hidden"
+        id="_id"
+        formControlName="_id"
+        class="form-control">
+      <div class="row">
+        <div class="col-xs-12">
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="!cityForm.valid">Save</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="brand">Brand</label>
+            <input
+              type="text"
+              id="brand"
+              formControlName="brand"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imagePath">Image URL</label>
+            <input
+              type="text"
+              id="imagePath"
+              formControlName="imagePath"
+              class="form-control"
+              #imagePath>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img [src]="imagePath.value" class="img-responsive">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="brewery">Brewery</label>
+            <input
+              type="text"
+              id="brewery"
+              formControlName="brewery"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="kind">Kind</label>
+            <input
+              type="text"
+              id="kind"
+              formControlName="kind"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="percentage">Percentage</label>
+            <input
+              type="text"
+              id="percentage"
+              formControlName="percentage"
+              class="form-control">
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

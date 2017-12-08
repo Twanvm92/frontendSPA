@@ -1,3 +1,20 @@
-<p>
-  beer-list works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewBeer()">New Beer</button>
+  </div>
+</div>
+<hr>
+<!--<div class="row">-->
+  <section class="beers" fxLayoutWrap>
+    <app-bier-item
+      *ngFor="let beerEl of beers; let i = index"
+      [beer]="beerEl"
+      [index]="beerEl._id"
+      class="ss"
+      fxLayout="column"
+      fxFlex="1 1 20%"
+      fxFlex.sm="1 1 50%"
+      fxFlex.xs="1 1 50%"
+      ></app-bier-item>
+  </section>
+<!--</div>-->

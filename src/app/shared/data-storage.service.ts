@@ -8,27 +8,26 @@ import 'rxjs/add/operator/map'
 
 import {RecipeService} from '../recipes/recipe.service';
 import {Recipe} from '../recipes/recipe.model';
-import {ShoppingListService} from "../shopping-list/shopping-list.service";
-import {Ingredient} from "./ingredient.model";
+import {BeerService} from "../beers/beer.service";
+import {Beer} from "../models/beer.model";
+import {City} from "../models/city.model";
+import {CityService} from "../cities/city.service";
 
 @Injectable()
 export class DataStorageService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
     private serverUrl = environment.serverUrl + '/recipes/'; // URL to web api
-    private shoppingListServerUrl = environment.serverUrl + '/shopping-list/';
+    private beersServerUrl = environment.serverUrl + '/beers/'; // URL to web api
+    private citiesServerUrl = environment.serverUrl + '/cities/'; // URL to web api
 
 
-    constructor(private http: Http, private recipeService: RecipeService, private shoppingListService: ShoppingListService) {
+    constructor(private http: Http, private recipeService: RecipeService,
+                private beerService: BeerService, private cityService: CityService) {
     }
 
     storeRecipes() {
         return this.http.put(this.serverUrl, this.recipeService.getRecipes());
-    }
-
-
-    storeShoppingList() {
-        return this.http.put(this.shoppingListServerUrl, this.shoppingListService.getIngredients());
     }
 
     getRecipes() {
@@ -48,90 +47,6 @@ export class DataStorageService {
                 (recipes: Recipe[]) =>
                     this.recipeService.setRecipes(recipes)
             );
-    }
-
-    getShoppingList() {
-        this.http.get(this.shoppingListServerUrl)
-            .map(
-                (response) => {
-                    const shopping_list = response.json();
-                    return shopping_list;
-                }
-            )
-            .subscribe(
-                (shopping_list) =>
-                    this.shoppingListService.setIngredients(shopping_list)
-            );
-    }
-
-    postShoppinglist(ingredient: Ingredient) {
-
-        this.http.post(this.shoppingListServerUrl, ingredient)
-            .map(
-                (response) => {
-                    const shopping_list = response.json();
-                    console.log(shopping_list);
-                    return shopping_list;
-                }
-            )
-            .subscribe((shopping_list) => {
-                this.shoppingListService.addIngredient(shopping_list)
-            })
-    }
-
-    postShoppingListArray(ingredients: Ingredient[]) {
-
-        for (let ingredient of ingredients) {
-            this.http.post(this.shoppingListServerUrl, ingredient)
-                .map(
-                    (response) => {
-                        const shopping_list = response.json();
-                        console.log(shopping_list);
-                        return shopping_list;
-                    }
-                )
-                .subscribe((shopping_list) => {
-                    this.shoppingListService.addIngredients(shopping_list)
-                })
-        }
-
-    }
-
-
-    updateShoppingList(ingredient) {
-
-        const amount = ingredient.amount;
-        const name = ingredient.name;
-
-        console.log(ingredient._id);
-
-        const body = {'name': name, 'amount': amount};
-        this.http.put(this.shoppingListServerUrl + ingredient._id, body)
-            .map(
-                (response) => {
-                    const shopping_list = response.json();
-                    console.log(shopping_list);
-                    return shopping_list;
-                }
-            )
-            .subscribe((shopping_list) => {
-                this.shoppingListService.updateIngredient(shopping_list);
-            })
-    }
-
-    deleteShoppingList(ingredient) {
-        this.http.delete(this.shoppingListServerUrl + ingredient._id)
-            .map(
-                (response) => {
-                    const shopping_list = response.json();
-                    console.log(shopping_list);
-                    return shopping_list;
-                }
-            )
-            .subscribe((shopping_list) => {
-                this.shoppingListService.deleteIngredient(shopping_list)
-            })
-
     }
 
     addRecipe(recipe: Recipe) {
@@ -175,6 +90,134 @@ export class DataStorageService {
                 }
             );
     }
+
+    getBeers() {
+      this.http.get(this.beersServerUrl)
+        .map(
+          (response) => {
+            const beers: Beer[] = response.json();
+            for (let beer of beers) {
+              if (!beer['stores']) {
+                beer['stores'] = [];
+              }
+            }
+            return beers;
+          }
+        )
+        .subscribe(
+          (beers: Beer[]) =>
+            this.beerService.setBeers(beers)
+        );
+    }
+
+    addBeer(beer: Beer) {
+      this.http.post('http://localhost:3000/api/v1/beers', beer)
+        .map(
+          (response) => {
+            console.log(response.json());
+            return response.json();
+          }
+        )
+        .subscribe(
+          (beer: Beer) => {
+            const str = JSON.stringify(beer);
+            console.log(str);
+            this.beerService.addBeer(beer);
+          }
+        );
+    }
+
+    updateBeer(beer: Beer) {
+      this.http.put(this.beersServerUrl + beer._id, beer)
+        .map(
+          (response) => {
+            return response.json();
+          }
+        )
+        .subscribe(
+          (beer: Beer) => {
+            this.beerService.updateBeer(beer);
+          }
+        );
+    }
+
+    deleteBeer(id: string) {
+      this.http.delete(this.beersServerUrl + id)
+        .map(
+          (response) => {
+            return response.json();
+          }
+        )
+        .subscribe(
+          (beer: Beer) => {
+            this.beerService.deleteBeer(beer._id);
+          }
+        );
+    }
+
+  getCities() {
+    this.http.get(this.citiesServerUrl)
+      .map(
+        (response) => {
+          const cities: City[] = response.json();
+          for (let city of cities) {
+            if (!city['stores']) {
+              city['stores'] = [];
+            }
+          }
+          return cities;
+        }
+      )
+      .subscribe(
+        (cities: City[]) =>
+          this.cityService.setCities(cities)
+      );
+  }
+
+  addCity(city: City) {
+    this.http.post(this.citiesServerUrl, city)
+      .map(
+        (response) => {
+          console.log(response.json());
+          return response.json();
+        }
+      )
+      .subscribe(
+        (city: City) => {
+          const str = JSON.stringify(city);
+          console.log(str);
+          this.cityService.addCity(city);
+        }
+      );
+  }
+
+  updateCity(city: City) {
+    this.http.put(this.citiesServerUrl + city._id, city)
+      .map(
+        (response) => {
+          return response.json();
+        }
+      )
+      .subscribe(
+        (city: City) => {
+          this.cityService.updateCity(city);
+        }
+      );
+  }
+
+  deleteCity(id: string) {
+    this.http.delete(this.citiesServerUrl + id)
+      .map(
+        (response) => {
+          return response.json();
+        }
+      )
+      .subscribe(
+        (city: City) => {
+          this.cityService.deleteCity(city._id);
+        }
+      );
+  }
 
 }
 

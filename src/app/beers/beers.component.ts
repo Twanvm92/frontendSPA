@@ -10,6 +10,8 @@ export class BeersComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+
   }
 
 }

@@ -1,3 +1,20 @@
-<p>
-  city-list works!
-</p>
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewCity()">New City</button>
+  </div>
+</div>
+<hr>
+<!--<div class="row">-->
+<section class="cities" fxLayoutWrap>
+  <app-city-item
+    *ngFor="let cityEl of cities; let i = index"
+    [city]="cityEl"
+    [index]="cityEl._id"
+    class="ss"
+    fxLayout="column"
+    fxFlex="1 1 20%"
+    fxFlex.sm="1 1 50%"
+    fxFlex.xs="1 1 50%"
+  ></app-city-item>
+</section>
+<!--</div>-->

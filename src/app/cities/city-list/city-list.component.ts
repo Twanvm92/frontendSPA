@@ -1,15 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {DataStorageService} from "../../shared/data-storage.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {CityService} from "../city.service";
+import {City} from "../../models/city.model";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-city-list',
   templateUrl: './city-list.component.html',
   styleUrls: ['./city-list.component.css']
 })
-export class CityListComponent implements OnInit {
+export class CityListComponent implements OnInit, OnDestroy {
+  cities: City[];
+  subscription: Subscription;
 
-  constructor() { }
+  constructor(private cityService: CityService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
+    this.subscription = this.cityService.citiesChanged
+      .subscribe(
+        (cities: City[]) => {
+          this.cities = cities;
+
+          for(let city of cities) {
+            console.log("id: " + city._id);
+          }
+        }
+      );
+
+    this.dataStorageService.getCities();
+  }
+
+
+  onNewCity() {
+    this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

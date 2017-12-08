@@ -9,10 +9,7 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './shared/dropdown.directive';
-import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
@@ -37,6 +34,9 @@ import { BeerDetailComponent } from './beers/beer-detail/beer-detail.component';
 import { BeerListComponent } from './beers/beer-list/beer-list.component';
 import { BierItemComponent } from './beers/beer-list/bier-item/bier-item.component';
 import { BeerEditComponent } from './beers/beer-edit/beer-edit.component';
+import {BeerService} from "./beers/beer.service";
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {CityService} from "./cities/city.service";
 
 @NgModule({
   declarations: [
@@ -46,8 +46,6 @@ import { BeerEditComponent } from './beers/beer-edit/beer-edit.component';
     RecipeListComponent,
     RecipeDetailComponent,
     RecipeItemComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
     RecipeEditComponent,
@@ -76,9 +74,10 @@ import { BeerEditComponent } from './beers/beer-edit/beer-edit.component';
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     AlertModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    FlexLayoutModule
   ],
-  providers: [ShoppingListService, RecipeService, DataStorageService],
+  providers: [RecipeService, BeerService, DataStorageService, CityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

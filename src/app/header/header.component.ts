@@ -8,27 +8,7 @@ import {DataStorageService} from "../shared/data-storage.service";
 export class HeaderComponent {
   isCollapsed: boolean = true;
 
-  constructor(private dataStorageService: DataStorageService) {}
+  constructor() {}
 
-  onSaveData() {
-    this.dataStorageService.storeRecipes()
-      .subscribe(
-        (response: any) => {
-          console.log(response);
-        }
-      );
-
-    this.dataStorageService.storeShoppingList()
-        .subscribe(
-            (response: any) => {
-              console.log(response);
-            }
-        );
-  }
-
-  onFetchData() {
-    this.dataStorageService.getRecipes();
-    this.dataStorageService.getShoppingList();
-  }
 
 }
