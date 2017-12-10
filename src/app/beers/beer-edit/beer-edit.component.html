@@ -1,22 +1,15 @@
-<div class="row">
-  <div class="col-xs-12">
+<section class="stores" fxLayout>
     <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
       <input
         type="hidden"
         id="_id"
         formControlName="_id"
         class="form-control">
-      <div class="row">
-        <div class="col-xs-12">
           <button
             type="submit"
             class="btn btn-success"
             [disabled]="!cityForm.valid">Save</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
           <div class="form-group">
             <label for="brand">Brand</label>
             <input
@@ -25,10 +18,6 @@
               formControlName="brand"
               class="form-control">
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
           <div class="form-group">
             <label for="imagePath">Image URL</label>
             <input
@@ -38,15 +27,7 @@
               class="form-control"
               #imagePath>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <img [src]="imagePath.value" class="img-responsive">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
+          <img [src]="imagePath.value" class="img-edit">
           <div class="form-group">
             <label for="brewery">Brewery</label>
             <input
@@ -55,10 +36,6 @@
               formControlName="brewery"
               class="form-control">
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
           <div class="form-group">
             <label for="kind">Kind</label>
             <input
@@ -67,10 +44,6 @@
               formControlName="kind"
               class="form-control">
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-12">
           <div class="form-group">
             <label for="percentage">Percentage</label>
             <input
@@ -79,8 +52,5 @@
               formControlName="percentage"
               class="form-control">
           </div>
-        </div>
-      </div>
     </form>
-  </div>
-</div>
+</section>

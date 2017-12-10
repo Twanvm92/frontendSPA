@@ -1,3 +1,30 @@
-<p>
-  city-detail works!
-</p>
+<section class="stores" fxLayout="column">
+  <div>
+    <img
+      [src]="city.imagePath"
+      alt="{{ city.title }}"
+      class="img-detail"
+      style="max-height: 300px;">
+  </div>
+
+  <div>
+    <h1>{{ city.title }}</h1>
+  </div>
+
+
+  <div
+    class="btn-group"
+    appDropdown dropdown>
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle"
+      dropdownToggle>
+      Manage City <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" *dropdownMenu>
+      <li><a style="cursor: pointer;" (click)="onEditCity()">Edit City</a></li>
+      <li><a style="cursor: pointer;" (click)="onDeleteCity()">Delete City</a></li>
+    </ul>
+  </div>
+  {{ city.description }}
+</section>

@@ -1,74 +1,79 @@
-<div class="row">
-  <div class="col-xs-12">
-    <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+
+  <div >
+    <form
+      [formGroup]="cityForm"
+      (ngSubmit)="onSubmit()"
+      >
       <input
         type="hidden"
         id="_id"
         formControlName="_id"
-        class="form-control">
-      <div class="row">
-        <div class="col-xs-12">
-          <button
-            type="submit"
-            class="btn btn-success"
-            [disabled]="!cityForm.valid">Save</button>
-          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-        </div>
+        class="form-control"
+        >
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="!cityForm.valid"
+        >Save</button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="onCancel()"
+        >Cancel</button>
+      <div class="form-group" fxLayoutWrap>
+        <label
+          for="title"
+          fxFlex="100%">Title</label>
+        <input
+          type="text"
+          id="title"
+          formControlName="title"
+          class="form-control"
+          fxFlex="100%">
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              formControlName="title"
-              class="form-control">
-          </div>
-        </div>
+      <div class="form-group" fxLayoutWrap>
+        <label for="imagePath" fxFlex="100%">Image URL</label>
+        <input
+          type="text"
+          id="imagePath"
+          formControlName="imagePath"
+          class="form-control"
+          #imagePath
+          fxFlex="100%">
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="imagePath">Image URL</label>
-            <input
-              type="text"
-              id="imagePath"
-              formControlName="imagePath"
-              class="form-control"
-              #imagePath>
-          </div>
-        </div>
+      <img [src]="imagePath.value" class="img-edit">
+      <div class="form-group" fxLayoutWrap>
+        <label for="description" fxFlex="100%">Description</label>
+        <input
+          type="text"
+          id="description"
+          formControlName="description"
+          class="form-control"
+          fxFlex="100%">
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <img [src]="imagePath.value" class="img-responsive">
-        </div>
+      <div class="form-group" fxLayoutWrap>
+        <label for="province" fxFlex="100%">Province</label>
+        <input
+          type="text"
+          id="province"
+          formControlName="province"
+          class="form-control"
+          fxFlex="100%"
+          >
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="description">Description</label>
-            <input
-              type="text"
-              id="description"
-              formControlName="description"
-              class="form-control">
-          </div>
-        </div>
+      <div class="form-group">
+          <sui-multi-select class="selection form-control" [(ngModel)]="selectedOption"
+                            [options]="stores"
+                            labelField="title"
+                            [isSearchable]="true"
+                            #select
+                            formControlName="stores">
+            <sui-select-option *ngFor="let option of select.filteredOptions" [value]="option">
+            </sui-select-option>
+          </sui-multi-select>
       </div>
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="form-group">
-            <label for="province">Province</label>
-            <input
-              type="text"
-              id="province"
-              formControlName="province"
-              class="form-control">
-          </div>
-        </div>
-      </div>
+
+
     </form>
   </div>
-</div>
+

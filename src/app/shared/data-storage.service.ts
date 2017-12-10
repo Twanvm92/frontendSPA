@@ -12,18 +12,30 @@ import {BeerService} from "../beers/beer.service";
 import {Beer} from "../models/beer.model";
 import {City} from "../models/city.model";
 import {CityService} from "../cities/city.service";
+import {Store} from "../models/store.model";
+import {StoreService} from "../stores/store.service";
 
 @Injectable()
 export class DataStorageService {
 
-    private headers = new Headers({'Content-Type': 'application/json'});
+    // used this because we HAVE to use promises..
+    private cities: City[];
     private serverUrl = environment.serverUrl + '/recipes/'; // URL to web api
     private beersServerUrl = environment.serverUrl + '/beers/'; // URL to web api
     private citiesServerUrl = environment.serverUrl + '/cities/'; // URL to web api
+    private storesServerUrl = environment.serverUrl + '/stores/'; // URL to web api
 
 
     constructor(private http: Http, private recipeService: RecipeService,
-                private beerService: BeerService, private cityService: CityService) {
+                private beerService: BeerService, private cityService: CityService,
+                private storeService: StoreService) {
+    }
+
+    // used to handle errors throw by promises used in CRUD for stores
+    // this so promises are at least used once.
+    private handleError(error: any): Promise<any> {
+      console.log('handleError');
+      return Promise.reject(error.message || error);
     }
 
     storeRecipes() {
@@ -91,6 +103,7 @@ export class DataStorageService {
             );
     }
 
+//------------------------Beers-----------------------------//
     getBeers() {
       this.http.get(this.beersServerUrl)
         .map(
@@ -155,6 +168,7 @@ export class DataStorageService {
         );
     }
 
+//------------------------Cities-----------------------------//
   getCities() {
     this.http.get(this.citiesServerUrl)
       .map(
@@ -218,6 +232,67 @@ export class DataStorageService {
         }
       );
   }
+
+//------------------------Stores-----------------------------//
+  // used this because we HAVE to use promises..
+  public getStores(): Promise<Store[]> {
+    console.log('items ophalen van server');
+    return this.http.get(this.storesServerUrl)
+      .toPromise()
+      .then(response => {
+        let stores:Store[] = response.json();
+        for (let store of stores) {
+          if (!store['beers']) {
+            store['beers'] = [];
+          }
+        }
+
+        this.storeService.setStores(stores);
+      })
+      .catch(error => {
+        return this.handleError(error);
+      });
+  }
+
+  public addStore(store: Store): Promise<Store> {
+    console.log('items ophalen van server');
+    return this.http.post(this.storesServerUrl, store)
+      .toPromise()
+      .then(response => {
+        let store:Store = response.json();
+        this.storeService.addStore(store);
+      })
+      .catch(error => {
+        return this.handleError(error);
+      });
+  }
+
+  public updateStore(store: Store): Promise<Store> {
+    console.log('items ophalen van server');
+    return this.http.put(this.storesServerUrl + store._id, store)
+      .toPromise()
+      .then(response => {
+        let store:Store = response.json();
+        this.storeService.updateStore(store);
+      })
+      .catch(error => {
+        return this.handleError(error);
+      });
+  }
+
+  public deleteStore(id: string): Promise<Store> {
+    console.log('items ophalen van server');
+    return this.http.delete(this.storesServerUrl + id)
+      .toPromise()
+      .then(response => {
+        let store:Store = response.json();
+        this.storeService.deleteStore(store._id);
+      })
+      .catch(error => {
+        return this.handleError(error);
+      });
+  }
+
 
 }
 

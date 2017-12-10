@@ -1,3 +1,17 @@
-<p>
-  store-item works!
-</p>
+<a
+  style="cursor: pointer;"
+  [routerLink]="[index]"
+  routerLinkActive="active">
+  <!--<div class="beer-card"-->
+  <!---->
+  <!--&gt;-->
+  <div class="city-image">
+    <img
+      [src]="store.imagePath"
+    >
+  </div>
+  <div class="beer-info" >
+    <h5>{{ store.title }}</h5>
+  </div>
+  <!--</div>-->
+</a>

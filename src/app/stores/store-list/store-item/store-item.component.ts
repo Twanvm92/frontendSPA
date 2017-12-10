@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
+import {Store} from "../../../models/store.model";
 
 @Component({
   selector: 'app-store-item',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./store-item.component.css']
 })
 export class StoreItemComponent implements OnInit {
+  @Input() store: Store;
+  @Input() index: number;
 
   constructor() { }
 

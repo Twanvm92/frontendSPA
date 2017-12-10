@@ -1,1 +1,20 @@
-
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewStore()">New Store</button>
+  </div>
+</div>
+<hr>
+<!--<div class="row">-->
+<section class="stores" fxLayoutWrap>
+  <app-store-item
+    *ngFor="let storeEl of stores; let i = index"
+    [store]="storeEl"
+    [index]="storeEl._id"
+    class="ss"
+    fxLayout="column"
+    fxFlex="1 1 20%"
+    fxFlex.sm="1 1 50%"
+    fxFlex.xs="1 1 50%"
+  ></app-store-item>
+</section>
+<!--</div>-->

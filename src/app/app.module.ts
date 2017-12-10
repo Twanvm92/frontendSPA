@@ -37,6 +37,8 @@ import { BeerEditComponent } from './beers/beer-edit/beer-edit.component';
 import {BeerService} from "./beers/beer.service";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {CityService} from "./cities/city.service";
+import {StoreService} from "./stores/store.service";
+import {SuiModule} from 'ng2-semantic-ui';
 
 @NgModule({
   declarations: [
@@ -75,9 +77,10 @@ import {CityService} from "./cities/city.service";
     BsDropdownModule.forRoot(),
     AlertModule.forRoot(),
     CollapseModule.forRoot(),
-    FlexLayoutModule
+    FlexLayoutModule,
+    SuiModule
   ],
-  providers: [RecipeService, BeerService, DataStorageService, CityService],
+  providers: [RecipeService, BeerService, DataStorageService, CityService, StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

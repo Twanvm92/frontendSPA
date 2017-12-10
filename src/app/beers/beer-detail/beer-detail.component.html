@@ -1,38 +1,29 @@
-<div class="row">
-  <div class="col-xs-12">
+<section class="stores" fxLayout="column">
+  <div>
     <img
       [src]="beer.imagePath"
       alt="{{ beer.brand }}"
-      class="img-responsive"
+      class="img-detail"
       style="max-height: 300px;">
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
+  <div>
     <h1>{{ beer.brand }}</h1>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div
-      class="btn-group"
-      appDropdown dropdown>
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle"
-        dropdownToggle>
-        Manage Recipe <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" *dropdownMenu>
-        <li><a style="cursor: pointer;" (click)="onEditBeer()">Edit Beer</a></li>
-        <li><a style="cursor: pointer;" (click)="onDeleteBeer()">Delete Beer</a></li>
-      </ul>
-    </div>
+
+  <div
+    class="btn-group"
+    appDropdown dropdown>
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle"
+      dropdownToggle>
+      Manage Beer <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" *dropdownMenu>
+      <li><a style="cursor: pointer;" (click)="onEditBeer()">Edit Beer</a></li>
+      <li><a style="cursor: pointer;" (click)="onDeleteBeer()">Delete Beer</a></li>
+    </ul>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    {{ beer.kind }}
-  </div>
-</div>
+  {{ beer.kind }}
+</section>
 
