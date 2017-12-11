@@ -1,4 +1,4 @@
-<section class="stores" fxLayout>
+<section class="stores">
     <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
       <input
         type="hidden"
@@ -10,47 +10,52 @@
             class="btn btn-success"
             [disabled]="!cityForm.valid">Save</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
-          <div class="form-group">
-            <label for="brand">Brand</label>
+          <div class="form-group" fxLayoutWrap>
+            <label for="brand" fxFlex="100%">Brand</label>
             <input
               type="text"
               id="brand"
               formControlName="brand"
-              class="form-control">
+              class="form-control"
+              fxFlex="100%">
           </div>
-          <div class="form-group">
-            <label for="imagePath">Image URL</label>
+          <div class="form-group" fxLayoutWrap>
+            <label for="imagePath" fxFlex="100%">Image URL</label>
             <input
               type="text"
               id="imagePath"
               formControlName="imagePath"
               class="form-control"
-              #imagePath>
+              #imagePath
+              fxFlex="100%">
           </div>
           <img [src]="imagePath.value" class="img-edit">
-          <div class="form-group">
-            <label for="brewery">Brewery</label>
+          <div class="form-group" fxLayoutWrap>
+            <label for="brewery" fxFlex="100%">Brewery</label>
             <input
               type="text"
               id="brewery"
               formControlName="brewery"
-              class="form-control">
+              class="form-control"
+              fxFlex="100%">
           </div>
-          <div class="form-group">
-            <label for="kind">Kind</label>
+          <div class="form-group" fxLayoutWrap>
+            <label for="kind" fxFlex="100%">Kind</label>
             <input
               type="text"
               id="kind"
               formControlName="kind"
-              class="form-control">
+              class="form-control"
+              fxFlex="100%">
           </div>
-          <div class="form-group">
-            <label for="percentage">Percentage</label>
+          <div class="form-group" fxLayoutWrap>
+            <label for="percentage" fxFlex="100%">Percentage</label>
             <input
               type="text"
               id="percentage"
               formControlName="percentage"
-              class="form-control">
+              class="form-control"
+              fxFlex="100%">
           </div>
     </form>
 </section>

@@ -3,6 +3,10 @@ import {FormGroup, FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {StoreService} from "../store.service";
 import {DataStorageService} from "../../shared/data-storage.service";
+import {BeerService} from "../../beers/beer.service";
+import {Subscription} from "rxjs";
+import {Store} from "../../models/store.model";
+import {Beer} from "../../models/beer.model";
 
 @Component({
   selector: 'app-store-edit',
@@ -13,9 +17,14 @@ export class StoreEditComponent implements OnInit {
   id: string;
   editMode = false;
   storeForm: FormGroup;
+  subscription: Subscription;
+  selectedOption = [];
+  beers= [];
+  store: Store;
 
   constructor(private route: ActivatedRoute,
               private storeService: StoreService,
+              private beerService: BeerService,
               private router: Router,
               private dataStorageService: DataStorageService) { }
 
@@ -28,6 +37,25 @@ export class StoreEditComponent implements OnInit {
           this.initForm();
         }
       );
+
+    this.subscription = this.beerService.beersChanged
+      .subscribe(
+        (beers: Beer[]) => {
+          this.beers = beers;
+
+          this.onSetSelectedBeers();
+
+          for(let beer of beers) {
+            console.log("id: " + beer._id);
+          }
+        }
+      );
+
+    this.dataStorageService.getBeers();
+  }
+
+  onSetSelectedBeers() {
+    this.selectedOption = this.beers.filter(o1 => this.store.beers.some(o2 => o1._id === o2._id));
   }
 
   onSubmit() {
@@ -52,11 +80,11 @@ export class StoreEditComponent implements OnInit {
     let imagePath = '';
 
     if (this.editMode) {
-      const store = this.storeService.getStore(this.id);
-      id = store._id;
-      title = store.title;
-      address = store.address;
-      imagePath = store.imagePath;
+      this.store = this.storeService.getStore(this.id);
+      id = this.store._id;
+      title = this.store.title;
+      address = this.store.address;
+      imagePath = this.store.imagePath;
     }
 
     this.storeForm = new FormGroup({
@@ -64,6 +92,7 @@ export class StoreEditComponent implements OnInit {
       'title': new FormControl(title, Validators.required),
       'address': new FormControl(address, Validators.required),
       'imagePath': new FormControl(imagePath, Validators.required),
+      'beers': new FormControl(this.beers)
     });
   }
 

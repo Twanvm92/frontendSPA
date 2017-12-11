@@ -4,7 +4,8 @@
   </div>
 </div>
 <hr>
-<!--<div class="row">-->
+<app-letter-filter></app-letter-filter>
+<hr>
 <section class="cities" fxLayoutWrap>
   <app-city-item
     *ngFor="let cityEl of cities; let i = index"
@@ -17,4 +18,3 @@
     fxFlex.xs="1 1 50%"
   ></app-city-item>
 </section>
-<!--</div>-->

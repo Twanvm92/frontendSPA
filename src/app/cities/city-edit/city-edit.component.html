@@ -1,5 +1,5 @@
 
-  <div >
+  <section>
     <form
       [formGroup]="cityForm"
       (ngSubmit)="onSubmit()"
@@ -61,19 +61,21 @@
           fxFlex="100%"
           >
       </div>
-      <div class="form-group">
-          <sui-multi-select class="selection form-control" [(ngModel)]="selectedOption"
-                            [options]="stores"
-                            labelField="title"
-                            [isSearchable]="true"
-                            #select
-                            formControlName="stores">
-            <sui-select-option *ngFor="let option of select.filteredOptions" [value]="option">
-            </sui-select-option>
-          </sui-multi-select>
+      <div class="form-group" fxLayoutWrap>
+        <label for="stores" fxFlex="100%">Add or Delete Stores</label>
+        <sui-multi-select class="selection form-control" [(ngModel)]="selectedOption"
+                          [options]="stores"
+                          labelField="title"
+                          [isSearchable]="true"
+                          #select
+                          formControlName="stores"
+                          id="stores">
+          <sui-select-option *ngFor="let option of select.filteredOptions" [value]="option">
+          </sui-select-option>
+        </sui-multi-select>
       </div>
 
 
     </form>
-  </div>
+  </section>
 

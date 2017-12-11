@@ -26,11 +26,12 @@ export class StoreListComponent implements OnInit, OnDestroy {
           this.stores = stores;
 
           for(let store of stores) {
-            console.log("id: " + store._id);
+            console.log(JSON.stringify(store));
           }
         }
       );
 
+    console.log("getting new stores");
     this.dataStorageService.getStores();
   }
 

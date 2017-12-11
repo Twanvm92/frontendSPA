@@ -28,11 +28,11 @@ export class StoreDetailComponent implements OnInit {
       );
   }
 
-  onEditCity() {
+  onEditStore() {
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
-  onDeleteCity() {
+  onDeleteStore() {
     this.storageService.deleteStore(this.id);
     this.router.navigate(['/stores']);
   }

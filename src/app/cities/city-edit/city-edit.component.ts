@@ -81,7 +81,6 @@ export class CityEditComponent implements OnInit {
     let description = '';
     let province = '';
     let imagePath = '';
-    let cityStores = new FormArray([]);
 
     if (this.editMode) {
       this.city = this.cityService.getCity(this.id);
@@ -91,16 +90,6 @@ export class CityEditComponent implements OnInit {
       province = this.city.province;
       imagePath = this.city.imagePath;
 
-
-      if (this.city['stores']) {
-        for (let store of this.city.stores) {
-          cityStores.push(
-            new FormGroup({
-              'title': new FormControl(store.title, Validators.required),
-            })
-          );
-        }
-      }
     }
 
     this.cityForm = new FormGroup({
