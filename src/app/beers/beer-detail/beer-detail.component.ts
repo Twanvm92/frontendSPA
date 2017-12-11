@@ -3,6 +3,7 @@ import {Beer} from "../../models/beer.model";
 import {BeerService} from "../beer.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {DataStorageService} from "../../shared/data-storage.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-beer-detail',
@@ -12,6 +13,7 @@ import {DataStorageService} from "../../shared/data-storage.service";
 export class BeerDetailComponent implements OnInit {
   beer: Beer;
   id: string;
+  subscription: Subscription;
 
   constructor(private beerService: BeerService,
               private route: ActivatedRoute,
@@ -24,6 +26,13 @@ export class BeerDetailComponent implements OnInit {
         (params: Params) => {
           this.id = params['id'];
           this.beer = this.beerService.getBeer(this.id);
+
+          this.subscription = this.beerService.beerChanged
+            .subscribe((beer:Beer) => {
+              this.beer = beer;
+            });
+
+          this.storageService.getBeer(this.id);
         }
       );
   }

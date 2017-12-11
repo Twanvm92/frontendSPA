@@ -7,10 +7,11 @@ import {Beer} from "../models/beer.model";
 @Injectable()
 export class BeerService {
   beersChanged = new Subject<Beer[]>();
+  beerChanged = new Subject<Beer>();
 
   private beers: Beer[] = [
-
   ];
+  private beer: Beer;
 
   constructor() {}
 
@@ -26,6 +27,11 @@ export class BeerService {
   setBeers(beers: Beer[]) {
     this.beers = beers;
     this.beersChanged.next(this.beers.slice());
+  }
+
+  setBeer(beer: Beer) {
+    this.beer = beer;
+    this.beerChanged.next(this.beer);
   }
 
   addBeer(beer: Beer) {

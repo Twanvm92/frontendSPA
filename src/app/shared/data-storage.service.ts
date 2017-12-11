@@ -123,6 +123,24 @@ export class DataStorageService {
         );
     }
 
+  getBeer(beerId: string) {
+    this.http.get(this.beersServerUrl + beerId)
+      .map(
+        (response) => {
+          const beer: Beer = response.json();
+
+          if (!beer['beers']) {
+            beer['beers'] = [];
+          }
+          return beer;
+        }
+      )
+      .subscribe(
+        (beer: Beer) =>
+          this.beerService.setBeer(beer)
+      );
+  }
+
     addBeer(beer: Beer) {
       this.http.post('http://localhost:3000/api/v1/beers', beer)
         .map(
@@ -185,6 +203,24 @@ export class DataStorageService {
       .subscribe(
         (cities: City[]) =>
           this.cityService.setCities(cities)
+      );
+  }
+
+  getCity(cityId: string) {
+    this.http.get(this.citiesServerUrl + cityId)
+      .map(
+        (response) => {
+          const city: City = response.json();
+
+            if (!city['stores']) {
+              city['stores'] = [];
+            }
+          return city;
+        }
+      )
+      .subscribe(
+        (city: City) =>
+          this.cityService.setCity(city)
       );
   }
 
@@ -252,6 +288,24 @@ export class DataStorageService {
       .catch(error => {
         return this.handleError(error);
       });
+  }
+
+  getStore(storeId: string) {
+    this.http.get(this.storesServerUrl + storeId)
+      .map(
+        (response) => {
+          const store: Store = response.json();
+
+          if (!store['beers']) {
+            store['beers'] = [];
+          }
+          return store;
+        }
+      )
+      .subscribe(
+        (store: Store) =>
+          this.storeService.setStore(store)
+      );
   }
 
   public addStore(store: Store): Promise<Store> {

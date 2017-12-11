@@ -17,7 +17,8 @@ export class StoreEditComponent implements OnInit {
   id: string;
   editMode = false;
   storeForm: FormGroup;
-  subscription: Subscription;
+  beersSubscription: Subscription;
+  storeSubscription: Subscription;
   selectedOption = [];
   beers= [];
   store: Store;
@@ -38,7 +39,7 @@ export class StoreEditComponent implements OnInit {
         }
       );
 
-    this.subscription = this.beerService.beersChanged
+    this.beersSubscription = this.beerService.beersChanged
       .subscribe(
         (beers: Beer[]) => {
           this.beers = beers;
@@ -80,11 +81,23 @@ export class StoreEditComponent implements OnInit {
     let imagePath = '';
 
     if (this.editMode) {
-      this.store = this.storeService.getStore(this.id);
-      id = this.store._id;
-      title = this.store.title;
-      address = this.store.address;
-      imagePath = this.store.imagePath;
+
+      this.storeSubscription = this.storeService.storeChanged
+        .subscribe((store:Store) => {
+          console.log("store-edit: " + JSON.stringify(store));
+          this.store = store;
+          id = this.store._id;
+          title = this.store.title;
+          address = this.store.address;
+          imagePath = this.store.imagePath;
+
+          (<FormControl>this.storeForm.get('_id')).setValue(id);
+          (<FormControl>this.storeForm.get('title')).setValue(title);
+          (<FormControl>this.storeForm.get('address')).setValue(address);
+          (<FormControl>this.storeForm.get('imagePath')).setValue(imagePath);
+        });
+
+      this.dataStorageService.getStore(this.id);
     }
 
     this.storeForm = new FormGroup({

@@ -7,8 +7,10 @@ import {Store} from "../models/store.model";
 @Injectable()
 export class StoreService {
   storesChanged = new Subject<Store[]>();
+  storeChanged = new Subject<Store>();
 
   private stores: Store[] = [];
+  private store: Store;
 
   constructor() {
   }
@@ -19,13 +21,19 @@ export class StoreService {
     return this.stores[index];
   }
 
-  setStores(cities: Store[]) {
-    this.stores = cities;
+  setStores(stores: Store[]) {
+    this.stores = stores;
     this.storesChanged.next(this.stores.slice());
   }
 
-  addStore(city: Store) {
-    this.stores.push(city);
+  setStore(store: Store) {
+    console.log("storeservice: " + JSON.stringify(store));
+    this.store = store;
+    this.storeChanged.next(this.store);
+  }
+
+  addStore(store: Store) {
+    this.stores.push(store);
     this.storesChanged.next(this.stores.slice());
   }
 

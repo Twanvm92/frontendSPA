@@ -3,6 +3,7 @@ import {Store} from "../../models/store.model";
 import {StoreService} from "../store.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {DataStorageService} from "../../shared/data-storage.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-store-detail',
@@ -12,6 +13,7 @@ import {DataStorageService} from "../../shared/data-storage.service";
 export class StoreDetailComponent implements OnInit {
   store: Store;
   id: string;
+  subscription: Subscription;
 
   constructor(private storeService: StoreService,
               private route: ActivatedRoute,
@@ -23,7 +25,13 @@ export class StoreDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = params['id'];
-          this.store = this.storeService.getStore(this.id);
+
+          this.subscription = this.storeService.storeChanged
+            .subscribe((store:Store) => {
+              this.store = store;
+            });
+
+          this.storageService.getStore(this.id);
         }
       );
   }

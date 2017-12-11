@@ -1,5 +1,5 @@
 <section class="stores">
-    <form [formGroup]="cityForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="beerForm" (ngSubmit)="onSubmit()">
       <input
         type="hidden"
         id="_id"
@@ -8,7 +8,7 @@
           <button
             type="submit"
             class="btn btn-success"
-            [disabled]="!cityForm.valid">Save</button>
+            [disabled]="!beerForm.valid">Save</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
           <div class="form-group" fxLayoutWrap>
             <label for="brand" fxFlex="100%">Brand</label>

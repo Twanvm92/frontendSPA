@@ -17,7 +17,8 @@ export class CityEditComponent implements OnInit {
   id: string;
   editMode = false;
   cityForm: FormGroup;
-  subscription: Subscription;
+  storeSubscription: Subscription;
+  citySubscription: Subscription;
   selectedOption = [];
   stores= [];
   city: City;
@@ -39,7 +40,7 @@ export class CityEditComponent implements OnInit {
         }
       );
 
-    this.subscription = this.storeService.storesChanged
+    this.storeSubscription = this.storeService.storesChanged
       .subscribe(
         (stores: Store[]) => {
           this.stores = stores;
@@ -83,12 +84,24 @@ export class CityEditComponent implements OnInit {
     let imagePath = '';
 
     if (this.editMode) {
-      this.city = this.cityService.getCity(this.id);
-      cityId = this.city._id;
-      title = this.city.title;
-      description = this.city.description;
-      province = this.city.province;
-      imagePath = this.city.imagePath;
+
+      this.citySubscription = this.cityService.cityChanged
+        .subscribe((city:City) => {
+          this.city = city;
+          cityId = this.city._id;
+          title = this.city.title;
+          description = this.city.description;
+          province = this.city.province;
+          imagePath = this.city.imagePath;
+
+          (<FormControl>this.cityForm.get('_id')).setValue(cityId);
+          (<FormControl>this.cityForm.get('title')).setValue(title);
+          (<FormControl>this.cityForm.get('description')).setValue(description);
+          (<FormControl>this.cityForm.get('imagePath')).setValue(imagePath);
+          (<FormControl>this.cityForm.get('province')).setValue(province);
+        });
+
+      this.dataStorageService.getCity(this.id);
 
     }
 

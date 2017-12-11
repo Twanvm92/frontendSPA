@@ -3,6 +3,8 @@ import {FormGroup, FormArray, FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {BeerService} from "../beer.service";
 import {DataStorageService} from "../../shared/data-storage.service";
+import {Subscription} from "rxjs";
+import {Beer} from "../../models/beer.model";
 
 @Component({
   selector: 'app-beer-edit',
@@ -12,7 +14,9 @@ import {DataStorageService} from "../../shared/data-storage.service";
 export class BeerEditComponent implements OnInit {
   id: string;
   editMode = false;
-  cityForm: FormGroup;
+  beerForm: FormGroup;
+  beerSubscription: Subscription;
+  beer: Beer;
 
   constructor(private route: ActivatedRoute,
               private beerService: BeerService,
@@ -33,11 +37,11 @@ export class BeerEditComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      this.dataStorageService.updateBeer(this.cityForm.value);
+      this.dataStorageService.updateBeer(this.beerForm.value);
     } else {
-      const str = JSON.stringify(this.cityForm.value);
+      const str = JSON.stringify(this.beerForm.value);
       console.log(str);
-      this.dataStorageService.addBeer(this.cityForm.value);
+      this.dataStorageService.addBeer(this.beerForm.value);
     }
     this.onCancel();
   }
@@ -56,16 +60,29 @@ export class BeerEditComponent implements OnInit {
 
 
     if (this.editMode) {
-      const beer = this.beerService.getBeer(this.id);
-      beerId = beer._id;
-      beerBrand = beer.brand;
-      beerBrewery = beer.brewery;
-      beerKind = beer.kind;
-      beerPercentage = beer.percentage;
-      beerImagePath = beer.imagePath;
+
+      this.beerSubscription = this.beerService.beerChanged
+        .subscribe((beer:Beer) => {
+          this.beer = beer;
+          beerId = beer._id;
+          beerBrand = beer.brand;
+          beerBrewery = beer.brewery;
+          beerKind = beer.kind;
+          beerPercentage = beer.percentage;
+          beerImagePath = beer.imagePath;
+
+          (<FormControl>this.beerForm.get('_id')).setValue(beerId);
+          (<FormControl>this.beerForm.get('brand')).setValue(beerBrand);
+          (<FormControl>this.beerForm.get('brewery')).setValue(beerBrewery);
+          (<FormControl>this.beerForm.get('kind')).setValue(beerKind);
+          (<FormControl>this.beerForm.get('percentage')).setValue(beerPercentage);
+          (<FormControl>this.beerForm.get('imagePath')).setValue(beerImagePath);
+        });
+
+      this.dataStorageService.getBeer(this.id);
     }
 
-    this.cityForm = new FormGroup({
+    this.beerForm = new FormGroup({
       '_id': new FormControl(beerId),
       'brand': new FormControl(beerBrand, Validators.required),
       'brewery': new FormControl(beerBrewery, Validators.required),

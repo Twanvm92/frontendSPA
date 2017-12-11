@@ -8,8 +8,10 @@ import {City} from "../models/city.model";
 @Injectable()
 export class CityService {
   citiesChanged = new Subject<City[]>();
+  cityChanged = new Subject<City>();
 
   private cities: City[] = [];
+  private city: City;
 
   constructor() {
   }
@@ -18,6 +20,11 @@ export class CityService {
   getCity(id: string) {
     const index = this.cities.findIndex(x => x._id == id);
     return this.cities[index];
+  }
+
+  setCity(city: City) {
+    this.city = city;
+    this.cityChanged.next(this.city);
   }
 
   setCities(cities: City[]) {

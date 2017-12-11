@@ -3,6 +3,7 @@ import {City} from "../../models/city.model";
 import {DataStorageService} from "../../shared/data-storage.service";
 import {Router, ActivatedRoute, Params} from "@angular/router";
 import {CityService} from "../city.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-city-detail',
@@ -12,6 +13,7 @@ import {CityService} from "../city.service";
 export class CityDetailComponent implements OnInit {
   city: City;
   id: string;
+  subscription: Subscription;
 
   constructor(private cityService: CityService,
               private route: ActivatedRoute,
@@ -23,7 +25,13 @@ export class CityDetailComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = params['id'];
-          this.city = this.cityService.getCity(this.id);
+
+          this.subscription = this.cityService.cityChanged
+            .subscribe((city:City) => {
+              this.city = city;
+            });
+
+          this.storageService.getCity(this.id);
         }
       );
   }
