@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
+import {Subject} from 'rxjs/Subject';
 import {Store} from "../models/store.model";
 /**
  * Created by twanv on 6-12-2017.

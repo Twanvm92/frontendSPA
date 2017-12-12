@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Subject} from "rxjs";
+import {Subject} from 'rxjs/Subject';
 import {City} from "../models/city.model";
 /**
  * Created by twanv on 6-12-2017.
