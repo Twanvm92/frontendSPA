@@ -14,6 +14,7 @@ export class CityDetailComponent implements OnInit {
   city: City;
   id: string;
   subscription: Subscription;
+  isCollapsed: boolean = true;
 
   constructor(private cityService: CityService,
               private route: ActivatedRoute,
@@ -42,7 +43,7 @@ export class CityDetailComponent implements OnInit {
 
   onDeleteCity() {
     this.storageService.deleteCity(this.id);
-    this.router.navigate(['/stores']);
+    this.router.navigate(['/cities']);
   }
 
 }

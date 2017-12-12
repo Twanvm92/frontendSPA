@@ -2,12 +2,8 @@
  * Created by twanv on 24-11-2017.
  */
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
 import {environment} from '../../environments/environment'
 import 'rxjs/add/operator/map'
-
-import {RecipeService} from '../recipes/recipe.service';
-import {Recipe} from '../recipes/recipe.model';
 import {BeerService} from "../beers/beer.service";
 import {Beer} from "../models/beer.model";
 import {City} from "../models/city.model";
@@ -23,13 +19,12 @@ export class DataStorageService {
 
     // used this because we HAVE to use promises..
     private cities: City[];
-    private serverUrl = environment.serverUrl + '/recipes/'; // URL to web api
     private beersServerUrl = environment.serverUrl + '/beers/'; // URL to web api
     private citiesServerUrl = environment.serverUrl + '/cities/'; // URL to web api
     private storesServerUrl = environment.serverUrl + '/stores/'; // URL to web api
 
 
-    constructor(private http: HttpClient, private recipeService: RecipeService,
+    constructor(private http: HttpClient,
                 private beerService: BeerService, private cityService: CityService,
                 private storeService: StoreService) {
     }
@@ -39,71 +34,6 @@ export class DataStorageService {
     private handleError(error: any): Promise<any> {
       console.log('handleError');
       return Promise.reject(error.message || error);
-    }
-
-    storeRecipes() {
-        return this.http.put(this.serverUrl, this.recipeService.getRecipes());
-    }
-
-    getRecipes() {
-        this.http.get(this.serverUrl)
-            .map(
-                (response: Recipe[]) => {
-                    const recipes: Recipe[] = response;
-                    for (let recipe of recipes) {
-                        if (!recipe['ingredients']) {
-                            recipe['ingredients'] = [];
-                        }
-                    }
-                    return recipes;
-                }
-            )
-            .subscribe(
-                (recipes: Recipe[]) =>
-                    this.recipeService.setRecipes(recipes)
-            );
-    }
-
-    addRecipe(recipe: Recipe) {
-        this.http.post(this.serverUrl, recipe)
-            .map(
-                (response) => {
-                    return response;
-                }
-            )
-            .subscribe(
-                (recipe: Recipe) => {
-                    this.recipeService.addRecipe(recipe);
-                }
-            );
-    }
-
-    updateRecipe(recipe: Recipe) {
-        this.http.put(this.serverUrl + recipe._id, recipe)
-            .map(
-                (response) => {
-                    return response;
-                }
-            )
-            .subscribe(
-                (recipe: Recipe) => {
-                    this.recipeService.updateRecipe(recipe);
-                }
-            );
-    }
-
-    deleteRecipe(id: string) {
-        this.http.delete(this.serverUrl + id)
-            .map(
-                (response) => {
-                    return response;
-                }
-            )
-            .subscribe(
-                (recipe: Recipe) => {
-                    this.recipeService.deleteRecipe(recipe._id);
-                }
-            );
     }
 
 //------------------------Beers-----------------------------//
