@@ -20,6 +20,14 @@ export class CityListComponent implements OnInit, OnDestroy {
               private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.firstLetter)
+      .subscribe(params => {
+        console.log(params);
+
+        this.dataStorageService.getCities(params.firstLetter);
+      });
+
     this.subscription = this.cityService.citiesChanged
       .subscribe(
         (cities: City[]) => {
@@ -34,6 +42,10 @@ export class CityListComponent implements OnInit, OnDestroy {
     this.dataStorageService.getCities();
   }
 
+  onLetterClicked(letter: string) {
+    console.log('letter city-list-component: ' + letter);
+    this.dataStorageService.getCities(letter);
+  }
 
   onNewCity() {
     this.router.navigate(['new'], {relativeTo: this.route});

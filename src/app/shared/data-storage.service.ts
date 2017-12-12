@@ -14,6 +14,9 @@ import {City} from "../models/city.model";
 import {CityService} from "../cities/city.service";
 import {Store} from "../models/store.model";
 import {StoreService} from "../stores/store.service";
+import {isUndefined} from "util";
+import {HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class DataStorageService {
@@ -26,7 +29,7 @@ export class DataStorageService {
     private storesServerUrl = environment.serverUrl + '/stores/'; // URL to web api
 
 
-    constructor(private http: Http, private recipeService: RecipeService,
+    constructor(private http: HttpClient, private recipeService: RecipeService,
                 private beerService: BeerService, private cityService: CityService,
                 private storeService: StoreService) {
     }
@@ -45,8 +48,8 @@ export class DataStorageService {
     getRecipes() {
         this.http.get(this.serverUrl)
             .map(
-                (response) => {
-                    const recipes: Recipe[] = response.json();
+                (response: Recipe[]) => {
+                    const recipes: Recipe[] = response;
                     for (let recipe of recipes) {
                         if (!recipe['ingredients']) {
                             recipe['ingredients'] = [];
@@ -65,7 +68,7 @@ export class DataStorageService {
         this.http.post(this.serverUrl, recipe)
             .map(
                 (response) => {
-                    return response.json();
+                    return response;
                 }
             )
             .subscribe(
@@ -79,7 +82,7 @@ export class DataStorageService {
         this.http.put(this.serverUrl + recipe._id, recipe)
             .map(
                 (response) => {
-                    return response.json();
+                    return response;
                 }
             )
             .subscribe(
@@ -93,7 +96,7 @@ export class DataStorageService {
         this.http.delete(this.serverUrl + id)
             .map(
                 (response) => {
-                    return response.json();
+                    return response;
                 }
             )
             .subscribe(
@@ -107,8 +110,8 @@ export class DataStorageService {
     getBeers() {
       this.http.get(this.beersServerUrl)
         .map(
-          (response) => {
-            const beers: Beer[] = response.json();
+          (response: Beer[]) => {
+            const beers: Beer[] = response;
             for (let beer of beers) {
               if (!beer['stores']) {
                 beer['stores'] = [];
@@ -126,8 +129,8 @@ export class DataStorageService {
   getBeer(beerId: string) {
     this.http.get(this.beersServerUrl + beerId)
       .map(
-        (response) => {
-          const beer: Beer = response.json();
+        (response: Beer) => {
+          const beer: Beer = response;
 
           if (!beer['beers']) {
             beer['beers'] = [];
@@ -145,8 +148,8 @@ export class DataStorageService {
       this.http.post('http://localhost:3000/api/v1/beers', beer)
         .map(
           (response) => {
-            console.log(response.json());
-            return response.json();
+            console.log(response);
+            return response;
           }
         )
         .subscribe(
@@ -162,7 +165,7 @@ export class DataStorageService {
       this.http.put(this.beersServerUrl + beer._id, beer)
         .map(
           (response) => {
-            return response.json();
+            return response;
           }
         )
         .subscribe(
@@ -176,7 +179,7 @@ export class DataStorageService {
       this.http.delete(this.beersServerUrl + id)
         .map(
           (response) => {
-            return response.json();
+            return response;
           }
         )
         .subscribe(
@@ -187,11 +190,19 @@ export class DataStorageService {
     }
 
 //------------------------Cities-----------------------------//
-  getCities() {
-    this.http.get(this.citiesServerUrl)
+  getCities(firstLetter?: string) {
+
+    if (isUndefined(firstLetter))
+      firstLetter = '';
+
+    let params = new HttpParams();
+    params = params.append('firstLetter', firstLetter);
+
+
+    this.http.get(this.citiesServerUrl, {params: params})
       .map(
-        (response) => {
-          const cities: City[] = response.json();
+        (response: City[]) => {
+          const cities: City[] = response;
           for (let city of cities) {
             if (!city['stores']) {
               city['stores'] = [];
@@ -209,8 +220,8 @@ export class DataStorageService {
   getCity(cityId: string) {
     this.http.get(this.citiesServerUrl + cityId)
       .map(
-        (response) => {
-          const city: City = response.json();
+        (response: City) => {
+          const city: City = response;
 
             if (!city['stores']) {
               city['stores'] = [];
@@ -228,8 +239,7 @@ export class DataStorageService {
     this.http.post(this.citiesServerUrl, city)
       .map(
         (response) => {
-          console.log(response.json());
-          return response.json();
+          return response;
         }
       )
       .subscribe(
@@ -245,7 +255,7 @@ export class DataStorageService {
     this.http.put(this.citiesServerUrl + city._id, city)
       .map(
         (response) => {
-          return response.json();
+          return response;
         }
       )
       .subscribe(
@@ -259,7 +269,7 @@ export class DataStorageService {
     this.http.delete(this.citiesServerUrl + id)
       .map(
         (response) => {
-          return response.json();
+          return response;
         }
       )
       .subscribe(
@@ -275,8 +285,8 @@ export class DataStorageService {
     console.log('items ophalen van server');
     return this.http.get(this.storesServerUrl)
       .toPromise()
-      .then(response => {
-        let stores:Store[] = response.json();
+      .then((response: Store[]) => {
+        let stores:Store[] = response;
         for (let store of stores) {
           if (!store['beers']) {
             store['beers'] = [];
@@ -293,8 +303,8 @@ export class DataStorageService {
   getStore(storeId: string) {
     this.http.get(this.storesServerUrl + storeId)
       .map(
-        (response) => {
-          const store: Store = response.json();
+        (response: Store) => {
+          const store: Store = response;
 
           if (!store['beers']) {
             store['beers'] = [];
@@ -312,8 +322,8 @@ export class DataStorageService {
     console.log('items ophalen van server');
     return this.http.post(this.storesServerUrl, store)
       .toPromise()
-      .then(response => {
-        let store:Store = response.json();
+      .then((response: Store) => {
+        let store:Store = response;
         this.storeService.addStore(store);
       })
       .catch(error => {
@@ -325,8 +335,8 @@ export class DataStorageService {
     console.log('items ophalen van server');
     return this.http.put(this.storesServerUrl + store._id, store)
       .toPromise()
-      .then(response => {
-        let store:Store = response.json();
+      .then((response: Store) => {
+        let store:Store = response;
         this.storeService.updateStore(store);
       })
       .catch(error => {
@@ -338,8 +348,8 @@ export class DataStorageService {
     console.log('items ophalen van server');
     return this.http.delete(this.storesServerUrl + id)
       .toPromise()
-      .then(response => {
-        let store:Store = response.json();
+      .then((response: Store) => {
+        let store:Store = response;
         this.storeService.deleteStore(store._id);
       })
       .catch(error => {

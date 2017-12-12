@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { RecipesComponent } from './recipes/recipes.component';
@@ -20,7 +18,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { StoresComponent } from './stores/stores.component';
 import { StoreListComponent } from './stores/store-list/store-list.component';
-import { LetterFilterComponent } from './shared/letter-filter/letter-filter.component';
 import { StoreDetailComponent } from './stores/store-detail/store-detail.component';
 import { StoreEditComponent } from './stores/store-edit/store-edit.component';
 import { StoreItemComponent } from './stores/store-list/store-item/store-item.component';
@@ -39,6 +36,10 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {CityService} from "./cities/city.service";
 import {StoreService} from "./stores/store.service";
 import {SuiModule} from 'ng2-semantic-ui';
+import {HttpClientModule} from "@angular/common/http";
+import { LetterFilterComponent } from './shared/letter-filter/letter-filter.component';
+import { LetterFilterItemComponent } from './shared/letter-filter/letter-filter-item/letter-filter-item.component';
+import {FilterDirectiveDirective} from "./shared/filter-directive/filter-directive.directive";
 
 @NgModule({
   declarations: [
@@ -66,13 +67,16 @@ import {SuiModule} from 'ng2-semantic-ui';
     BeerDetailComponent,
     BeerListComponent,
     BierItemComponent,
-    BeerEditComponent
+    BeerEditComponent,
+    LetterFilterComponent,
+    LetterFilterItemComponent,
+    FilterDirectiveDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     AlertModule.forRoot(),
