@@ -20,6 +20,14 @@ export class StoreListComponent implements OnInit, OnDestroy {
               private dataStorageService: DataStorageService) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.firstLetter)
+      .subscribe(params => {
+        console.log(params);
+
+        this.dataStorageService.getStores(params.firstLetter);
+      });
+
     this.subscription = this.storeService.storesChanged
       .subscribe(
         (stores: Store[]) => {

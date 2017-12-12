@@ -42,11 +42,6 @@ export class CityListComponent implements OnInit, OnDestroy {
     this.dataStorageService.getCities();
   }
 
-  onLetterClicked(letter: string) {
-    console.log('letter city-list-component: ' + letter);
-    this.dataStorageService.getCities(letter);
-  }
-
   onNewCity() {
     this.router.navigate(['new'], {relativeTo: this.route});
   }

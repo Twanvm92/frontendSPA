@@ -281,9 +281,15 @@ export class DataStorageService {
 
 //------------------------Stores-----------------------------//
   // used this because we HAVE to use promises..
-  public getStores(): Promise<Store[]> {
-    console.log('items ophalen van server');
-    return this.http.get(this.storesServerUrl)
+  public getStores(firstLetter?: string): Promise<Store[]> {
+
+    if (isUndefined(firstLetter))
+      firstLetter = '';
+
+    let params = new HttpParams();
+    params = params.append('firstLetter', firstLetter);
+
+    return this.http.get(this.storesServerUrl, {params: params})
       .toPromise()
       .then((response: Store[]) => {
         let stores:Store[] = response;
