@@ -4,6 +4,7 @@ import {StoreService} from "../store.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {DataStorageService} from "../../shared/data-storage.service";
 import {Subscription} from "rxjs";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-store-detail',
@@ -14,11 +15,13 @@ export class StoreDetailComponent implements OnInit {
   store: Store;
   id: string;
   subscription: Subscription;
+  isCollapsed: boolean = true;
 
   constructor(private storeService: StoreService,
               private route: ActivatedRoute,
               private router: Router,
-              private storageService: DataStorageService) { }
+              private storageService: DataStorageService,
+              private location: Location) { }
 
   ngOnInit() {
     this.route.params
@@ -38,6 +41,10 @@ export class StoreDetailComponent implements OnInit {
 
   onEditStore() {
     this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onBack() {
+    this.location.back();
   }
 
   onDeleteStore() {

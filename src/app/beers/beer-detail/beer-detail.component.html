@@ -1,5 +1,8 @@
 <section class="stores" fxLayout="column">
   <div>
+    <button type="button" class="btn btn-danger" (click)="onBack()">Go back</button>
+  </div>
+  <div>
     <img
       [src]="beer.imagePath"
       alt="{{ beer.brand }}"

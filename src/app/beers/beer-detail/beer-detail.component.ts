@@ -4,6 +4,7 @@ import {BeerService} from "../beer.service";
 import {ActivatedRoute, Router, Params} from "@angular/router";
 import {DataStorageService} from "../../shared/data-storage.service";
 import {Subscription} from "rxjs";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-beer-detail',
@@ -18,7 +19,8 @@ export class BeerDetailComponent implements OnInit {
   constructor(private beerService: BeerService,
               private route: ActivatedRoute,
               private router: Router,
-              private storageService: DataStorageService) { }
+              private storageService: DataStorageService,
+              private location: Location) { }
 
   ngOnInit() {
     this.route.params
@@ -39,6 +41,10 @@ export class BeerDetailComponent implements OnInit {
 
   onEditBeer() {
     this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onBack() {
+    this.location.back();
   }
 
   onDeleteBeer() {

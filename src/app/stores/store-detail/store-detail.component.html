@@ -1,29 +1,40 @@
 <section class="stores" fxLayout="column">
-    <div>
-      <img
-        [src]="store.imagePath"
-        alt="{{ store.title }}"
-        class="img-detail"
-        >
-    </div>
-    <div >
-      <h1>{{ store.title }}</h1>
-    </div>
-
-
-    <div
-      class="btn-group"
-      appDropdown dropdown
+  <div>
+    <button type="button" class="btn btn-danger" (click)="onBack()">Go back</button>
+  </div>
+  <div>
+    <img
+      [src]="store.imagePath"
+      alt="{{ store.title }}"
+      class="img-detail"
       >
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle"
-        dropdownToggle>
-        Manage Store <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" *dropdownMenu>
-        <li><a style="cursor: pointer;" (click)="onEditStore()">Edit Store</a></li>
-        <li><a style="cursor: pointer;" (click)="onDeleteStore()">Delete Store</a></li>
-      </ul>
-    </div>
+  </div>
+  <div >
+    <h1>{{ store.title }}</h1>
+  </div>
+
+
+  <div
+    class="btn-group"
+    appDropdown dropdown
+    >
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle"
+      dropdownToggle>
+      Manage Store <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" *dropdownMenu>
+      <li><a style="cursor: pointer;" (click)="onEditStore()">Edit Store</a></li>
+      <li><a style="cursor: pointer;" (click)="onDeleteStore()">Delete Store</a></li>
+    </ul>
+  </div>
 </section>
+<button type="button" class="btn btn-primary"
+        (click)="isCollapsed = !isCollapsed">Show Beers
+</button>
+<hr>
+<app-beer-list *ngIf="store"
+                [collapse]="isCollapsed"
+                [storeBeers]="store.beers"
+                class="card card-block card-header"></app-beer-list>

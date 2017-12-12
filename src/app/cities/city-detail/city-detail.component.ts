@@ -4,6 +4,7 @@ import {DataStorageService} from "../../shared/data-storage.service";
 import {Router, ActivatedRoute, Params} from "@angular/router";
 import {CityService} from "../city.service";
 import {Subscription} from "rxjs";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-city-detail',
@@ -19,7 +20,8 @@ export class CityDetailComponent implements OnInit {
   constructor(private cityService: CityService,
               private route: ActivatedRoute,
               private router: Router,
-              private storageService: DataStorageService) { }
+              private storageService: DataStorageService,
+              private location: Location) { }
 
   ngOnInit() {
     this.route.params
@@ -39,6 +41,10 @@ export class CityDetailComponent implements OnInit {
 
   onEditCity() {
     this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onBack() {
+    this.location.back();
   }
 
   onDeleteCity() {

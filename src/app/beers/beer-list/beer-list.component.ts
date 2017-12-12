@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Beer} from "../../models/beer.model";
 import {Router, ActivatedRoute} from "@angular/router";
@@ -13,6 +13,7 @@ import {BeerService} from "../beer.service";
 export class BeerListComponent implements OnInit, OnDestroy {
   beers: Beer[];
   subscription: Subscription;
+  @Input() storeBeers: Beer[];
 
   constructor(private beerService: BeerService,
               private router: Router,
@@ -27,14 +28,13 @@ export class BeerListComponent implements OnInit, OnDestroy {
         (beers: Beer[]) => {
           this.beers = beers;
 
-          for(let beer of beers) {
-            console.log("id: " + beer._id);
+          if (this.storeBeers != null) {
+            this.beers = this.beers.filter(o1 => this.storeBeers.some(o2 => o1._id === o2._id));
           }
         }
       );
 
     this.dataStorageService.getBeers();
-    // this.recipes = this.recipeService.getRecipes();
   }
 
   onNewBeer() {
