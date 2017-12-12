@@ -75,7 +75,7 @@ export class DataStorageService {
   }
 
     addBeer(beer: Beer) {
-      this.http.post('http://localhost:3000/api/v1/beers', beer)
+      this.http.post(this.beersServerUrl, beer)
         .map(
           (response) => {
             console.log(response);
