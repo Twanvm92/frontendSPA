@@ -42,7 +42,7 @@ export class BeerListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription ? this.subscription.unsubscribe() : null;
+    this.subscription.unsubscribe();
   }
 
 }

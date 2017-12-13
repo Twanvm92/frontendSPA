@@ -2,9 +2,8 @@
  * Created by twanv on 24-11-2017.
  */
 import {Injectable} from '@angular/core';
-import {environment} from '../../environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import {environment} from '../../environments/environment'
+import 'rxjs/add/operator/map'
 import {BeerService} from "../beers/beer.service";
 import {Beer} from "../models/beer.model";
 import {City} from "../models/city.model";
@@ -14,7 +13,6 @@ import {StoreService} from "../stores/store.service";
 import {isUndefined} from "util";
 import {HttpParams} from "@angular/common/http";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
 
 @Injectable()
 export class DataStorageService {
@@ -33,15 +31,10 @@ export class DataStorageService {
 
     // used to handle errors throw by promises used in CRUD for stores
     // this so promises are at least used once.
-    private handlePromiseError(error: any): Promise<any> {
-      console.log('handlePromiseError');
+    private handleError(error: any): Promise<any> {
+      console.log('handleError');
       return Promise.reject(error.message || error);
     }
-
-  private handleObservableError(error: any): Observable<any> {
-    console.log('handleObservableError');
-    return Observable.throw(error || 'backend server error');
-  }
 
 //------------------------Beers-----------------------------//
     getBeers() {
@@ -89,19 +82,13 @@ export class DataStorageService {
             return response;
           }
         )
-        .catch((error) => {
-          console.log("data-storage-service: error occurred");
-          return this.handleObservableError(error)
-        })
         .subscribe(
           (beer: Beer) => {
             const str = JSON.stringify(beer);
             console.log(str);
             this.beerService.addBeer(beer);
-          },
-          (error) => this.beerService.handleError(error)
-        )
-
+          }
+        );
     }
 
     updateBeer(beer: Beer) {
@@ -245,7 +232,7 @@ export class DataStorageService {
         this.storeService.setStores(stores);
       })
       .catch(error => {
-        return this.handlePromiseError(error);
+        return this.handleError(error);
       });
   }
 
@@ -276,7 +263,7 @@ export class DataStorageService {
         this.storeService.addStore(store);
       })
       .catch(error => {
-        return this.handlePromiseError(error);
+        return this.handleError(error);
       });
   }
 
@@ -289,7 +276,7 @@ export class DataStorageService {
         this.storeService.updateStore(store);
       })
       .catch(error => {
-        return this.handlePromiseError(error);
+        return this.handleError(error);
       });
   }
 
@@ -302,7 +289,7 @@ export class DataStorageService {
         this.storeService.deleteStore(store._id);
       })
       .catch(error => {
-        return this.handlePromiseError(error);
+        return this.handleError(error);
       });
   }
 
