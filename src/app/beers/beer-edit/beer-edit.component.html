@@ -12,6 +12,11 @@
               [disabled]="!beerForm.valid">Save</button>
             <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
           </div>
+          <div>
+            <span
+              class="help-block"
+              *ngIf="!beerForm.valid && beerForm.touched" >*Please enter valid data</span>
+          </div>
           <div class="form-group" fxLayoutWrap>
             <label for="brand" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Brand:</label>
             <input

@@ -47,7 +47,7 @@ export class CityListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription ? this.subscription.unsubscribe() : null;
   }
 
 }

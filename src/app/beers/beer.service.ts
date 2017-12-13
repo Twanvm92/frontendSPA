@@ -51,4 +51,9 @@ export class BeerService {
     this.beers.splice(index, 1);
     this.beersChanged.next(this.beers.slice());
   }
+
+  handleError(error: any) {
+    console.log("beerService: Error being handled");
+    this.beerChanged.error(error)
+  }
 }
