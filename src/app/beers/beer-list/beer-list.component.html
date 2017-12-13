@@ -1,6 +1,6 @@
 
   <div fxLayout>
-    <button class="btn btn-success" (click)="onNewBeer()">New Beer</button>
+    <button class="btn btn-success" [fxHide]="storeBeers != null" (click)="onNewBeer()">New Beer</button>
   </div>
 <hr>
 <!--<div class="row">-->

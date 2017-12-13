@@ -19,3 +19,20 @@ section {
   margin-bottom: 10px;
   margin-top: 10px;
 }
+
+.help-block {
+  color: red;
+}
+
+span {
+  margin-bottom: 10px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.form-group {
+  margin-top: 10px;
+}
+

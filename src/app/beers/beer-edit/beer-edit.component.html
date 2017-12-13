@@ -10,7 +10,13 @@
               type="submit"
               class="btn btn-success"
               [disabled]="!beerForm.valid">Save</button>
+
             <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+          </div>
+          <div class="span">
+            <span
+              class="help-block"
+              *ngIf="!beerForm.valid && beerForm.touched" >*Please enter valid data</span>
           </div>
           <div class="form-group" fxLayoutWrap>
             <label for="brand" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Brand:</label>
@@ -20,6 +26,30 @@
               formControlName="brand"
               class="form-control"
               fxFlex="90%">
+          </div>
+          <div
+            class="help-block"
+            *ngIf="!beerForm.get('brand').valid && beerForm.get('brand').touched"
+            fxLayout>
+            <span
+              *ngIf="beerForm.get('brand').errors['required']"
+              fxFlexOffset="10%"
+              fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *Please enter a brand
+            </span>
+            <span
+              *ngIf="beerForm.get('brand').hasError('minlength')"
+              fxFlexOffset="10%"
+              fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *The minimal length of this field is 3 characters
+            </span>
+            <span
+              *ngIf="beerForm.get('brand').hasError('maxlength')"
+              fxFlexOffset="10%"
+              fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                    *The maximum length of this field is 12 characters
+                  </span>
+
           </div>
           <div class="form-group" fxLayoutWrap>
             <label for="imagePath" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Image URL:</label>
@@ -41,6 +71,30 @@
               class="form-control"
               fxFlex="90%">
           </div>
+          <span
+            class="help-block"
+            *ngIf="!beerForm.get('brewery').valid && beerForm.get('brewery').touched"
+            class="help-block">
+                <span
+                  *ngIf="beerForm.get('brewery').errors['required']"
+                  fxFlexOffset="10%"
+                  fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                  *Please enter a brewery
+                </span>
+                <span
+                  *ngIf="beerForm.get('brewery').hasError('minlength')"
+                  fxFlexOffset="10%"
+                  fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                  *The minimal length of this field is 5 characters
+                </span>
+                <span
+                  *ngIf="beerForm.get('brewery').hasError('maxlength')"
+                  fxFlexOffset="10%"
+                  fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                        *The maximum length of this field is 25 characters
+                      </span>
+
+                    </span>
           <div class="form-group" fxLayoutWrap>
             <label for="kind" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Kind:</label>
             <input
@@ -50,6 +104,30 @@
               class="form-control"
               fxFlex="90%">
           </div>
+          <span
+            class="help-block"
+            *ngIf="!beerForm.get('kind').valid && beerForm.get('kind').touched"
+            class="help-block">
+                    <span
+                      *ngIf="beerForm.get('kind').errors['required']"
+                      fxFlexOffset="10%"
+                      fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                      *Please enter a kind
+                    </span>
+                    <span
+                      *ngIf="beerForm.get('kind').hasError('minlength')"
+                      fxFlexOffset="10%"
+                      fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                      *The minimal length of this field is 3 characters
+                    </span>
+                    <span
+                      *ngIf="beerForm.get('kind').hasError('maxlength')"
+                      fxFlexOffset="10%"
+                      fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                            *The maximum length of this field is 15 characters
+                          </span>
+
+                        </span>
           <div class="form-group" fxLayoutWrap>
             <label for="percentage" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Percentage:</label>
             <input
@@ -59,5 +137,23 @@
               class="form-control"
               fxFlex="90%">
           </div>
+      <span
+        class="help-block"
+        *ngIf="!beerForm.get('percentage').valid && beerForm.get('percentage').touched"
+        >
+                    <span
+                      *ngIf="beerForm.get('percentage').errors['required']"
+                      fxFlexOffset="10%"
+                      fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                      *Please enter a percentage
+                    </span>
+                    <span
+                      *ngIf="beerForm.get('percentage').hasError('pattern')"
+                      fxFlexOffset="10%"
+                      fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                      *Please enter a valid percentage like number.number%
+                    </span>
+
+                        </span>
     </form>
 </section>

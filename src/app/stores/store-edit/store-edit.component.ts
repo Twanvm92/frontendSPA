@@ -102,9 +102,11 @@ export class StoreEditComponent implements OnInit {
 
     this.storeForm = new FormGroup({
       '_id': new FormControl(id),
-      'title': new FormControl(title, Validators.required),
-      'address': new FormControl(address, Validators.required),
-      'imagePath': new FormControl(imagePath, Validators.required),
+      'title': new FormControl(title, [Validators.required,
+        Validators.minLength(3), Validators.maxLength(20)]),
+      'address': new FormControl(address, [Validators.required,
+        Validators.minLength(5), Validators.maxLength(20)]),
+      'imagePath': new FormControl(imagePath),
       'beers': new FormControl(this.beers)
     });
   }

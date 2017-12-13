@@ -22,6 +22,8 @@ export class CityEditComponent implements OnInit {
   selectedOption = [];
   stores= [];
   city: City;
+  allowedProvinces = ['Groningen', 'Friesland', 'Drenthe', 'Overijssel', 'Flevoland', 'Gelderland', 'Utrecht',
+    'Noord-Holland', 'Zuid-Holland', 'Noord-Brabant', 'Zeeland', 'Limburg'];
 
   constructor(private route: ActivatedRoute,
               private cityService: CityService,
@@ -107,14 +109,23 @@ export class CityEditComponent implements OnInit {
 
     this.cityForm = new FormGroup({
       '_id': new FormControl(cityId),
-      'title': new FormControl(title, Validators.required),
-      'description': new FormControl(description, Validators.required),
-      'province': new FormControl(province, Validators.required),
-      'imagePath': new FormControl(imagePath, Validators.required),
+      'title': new FormControl(title, [Validators.required,
+        Validators.minLength(3), Validators.maxLength(20)]),
+      'description': new FormControl(description, [Validators.required,
+        Validators.minLength(5), Validators.maxLength(200)]),
+      'province': new FormControl(province, [Validators.required,
+        Validators.minLength(7), Validators.maxLength(13),
+        this.forbiddenProvince.bind(this)]),
+      'imagePath': new FormControl(imagePath),
       'stores': new FormControl(this.stores)
     });
+  }
 
-
+  forbiddenProvince(control: FormControl): {[s: string]: boolean} {
+    if (this.allowedProvinces.indexOf(control.value) === -1) {
+      return {'provinceIsForbidden': true};
+    }
+    return null;
   }
 
 }

@@ -1,6 +1,6 @@
 
 <div fxLayout>
-  <button class="btn btn-success" (click)="onNewStore()">New Store</button>
+  <button class="btn btn-success" [fxHide]="cityStores != null" (click)="onNewStore()">New Store</button>
 </div>
 
 <hr>

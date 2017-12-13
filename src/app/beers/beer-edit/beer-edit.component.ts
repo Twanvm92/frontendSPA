@@ -84,11 +84,14 @@ export class BeerEditComponent implements OnInit {
 
     this.beerForm = new FormGroup({
       '_id': new FormControl(beerId),
-      'brand': new FormControl(beerBrand, Validators.required),
-      'brewery': new FormControl(beerBrewery, Validators.required),
-      'kind': new FormControl(beerKind, Validators.required),
-      'percentage': new FormControl(beerPercentage, Validators.required),
-      'imagePath': new FormControl(beerImagePath, Validators.required),
+      'brand': new FormControl(beerBrand, [Validators.required,
+        Validators.minLength(3), Validators.maxLength(12)]),
+      'brewery': new FormControl(beerBrewery, [Validators.required,
+        Validators.minLength(5), Validators.maxLength(25)]),
+      'kind': new FormControl(beerKind, [Validators.required,
+        Validators.minLength(3), Validators.maxLength(15)]),
+      'percentage': new FormControl(beerPercentage, [Validators.required, Validators.pattern('\\d{1,2}(\\.\\d{0,2})?\%')]),
+      'imagePath': new FormControl(beerImagePath),
     });
   }
 

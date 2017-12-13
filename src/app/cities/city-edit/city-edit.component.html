@@ -22,11 +22,13 @@
           (click)="onCancel()"
         >Cancel</button>
       </div>
-
+      <span
+        class="help-block"
+        *ngIf="!cityForm.valid && cityForm.touched" >*Please enter valid data</span>
       <div class="form-group" fxLayoutWrap>
         <label
           for="title"
-          fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Title</label>
+          fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Title:</label>
         <input
           type="text"
           id="title"
@@ -34,8 +36,32 @@
           class="form-control"
           fxFlex="90%">
       </div>
+      <div
+        class="help-block"
+        *ngIf="!cityForm.get('title').valid && cityForm.get('title').touched"
+        fxLayout>
+            <span
+              *ngIf="cityForm.get('title').errors['required']"
+              fxFlexOffset="10%"
+              fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *Please enter a title
+            </span>
+        <span
+          *ngIf="cityForm.get('title').hasError('minlength')"
+          fxFlexOffset="10%"
+          fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *The minimal length of this field is 3 characters
+            </span>
+        <span
+          *ngIf="cityForm.get('title').hasError('maxlength')"
+          fxFlexOffset="10%"
+          fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                    *The maximum length of this field is 20 characters
+                  </span>
+
+      </div>
       <div class="form-group" fxLayoutWrap>
-        <label for="imagePath" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Image URL</label>
+        <label for="imagePath" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Image URL:</label>
         <input
           type="text"
           id="imagePath"
@@ -46,7 +72,7 @@
       </div>
       <img [src]="imagePath.value" class="img-edit">
       <div class="form-group" fxLayoutWrap>
-        <label for="description" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Description</label>
+        <label for="description" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Description:</label>
         <input
           type="text"
           id="description"
@@ -54,8 +80,32 @@
           class="form-control"
           fxFlex="90%">
       </div>
+      <div
+        class="help-block"
+        *ngIf="!cityForm.get('description').valid && cityForm.get('description').touched"
+        fxLayout>
+            <span
+              *ngIf="cityForm.get('description').errors['required']"
+              fxFlexOffset="10%"
+              fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *Please enter a description
+            </span>
+        <span
+          *ngIf="cityForm.get('description').hasError('minlength')"
+          fxFlexOffset="10%"
+          fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *The minimal length of this field is 5 characters
+            </span>
+        <span
+          *ngIf="cityForm.get('description').hasError('maxlength')"
+          fxFlexOffset="10%"
+          fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                    *The maximum length of this field is 200 characters
+                  </span>
+
+      </div>
       <div class="form-group" fxLayoutWrap>
-        <label for="province" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Province</label>
+        <label for="province" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Province:</label>
         <input
           type="text"
           id="province"
@@ -64,8 +114,38 @@
           fxFlex="90%"
           >
       </div>
+      <div
+        class="help-block"
+        *ngIf="!cityForm.get('province').valid && cityForm.get('province').touched"
+        fxLayout>
+            <span
+              *ngIf="cityForm.get('province').errors['required']"
+              fxFlexOffset="10%"
+              fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *Please enter a province
+            </span>
+        <span
+          *ngIf="cityForm.get('province').hasError('minlength')"
+          fxFlexOffset="10%"
+          fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+              *The minimal length of this field is 7 characters
+            </span>
+        <span
+          *ngIf="cityForm.get('province').hasError('maxlength')"
+          fxFlexOffset="10%"
+          fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                    *The maximum length of this field is 13 characters
+                  </span>
+        <span
+          *ngIf="cityForm.get('province').hasError('provinceIsForbidden')"
+          fxFlexOffset="10%"
+          fxFlexOffset.xs="0%" fxFlexOffset.sm="0%">
+                    *Please enter a valid province
+                  </span>
+
+      </div>
       <div class="form-group" fxLayoutWrap>
-        <label for="stores" fxFlex="10%" fxFlex.xs="40%" fxFlex.sm="40%">Add or Delete Stores</label>
+        <label for="stores" fxFlex="10%" fxFlex.xs="40%" fxFlex.sm="40%">Add or Delete Stores:</label>
         <sui-multi-select class="selection form-control" [(ngModel)]="selectedOption"
                           [options]="stores"
                           labelField="title"
