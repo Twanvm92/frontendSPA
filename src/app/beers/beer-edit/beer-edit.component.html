@@ -5,57 +5,59 @@
         id="_id"
         formControlName="_id"
         class="form-control">
-          <button
-            type="submit"
-            class="btn btn-success"
-            [disabled]="!beerForm.valid">Save</button>
-          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+          <div class="button-group">
+            <button
+              type="submit"
+              class="btn btn-success"
+              [disabled]="!beerForm.valid">Save</button>
+            <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+          </div>
           <div class="form-group" fxLayoutWrap>
-            <label for="brand" fxFlex="100%">Brand</label>
+            <label for="brand" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Brand:</label>
             <input
               type="text"
               id="brand"
               formControlName="brand"
               class="form-control"
-              fxFlex="100%">
+              fxFlex="90%">
           </div>
           <div class="form-group" fxLayoutWrap>
-            <label for="imagePath" fxFlex="100%">Image URL</label>
+            <label for="imagePath" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Image URL:</label>
             <input
               type="text"
               id="imagePath"
               formControlName="imagePath"
               class="form-control"
               #imagePath
-              fxFlex="100%">
+              fxFlex="90%">
           </div>
           <img [src]="imagePath.value" class="img-edit">
           <div class="form-group" fxLayoutWrap>
-            <label for="brewery" fxFlex="100%">Brewery</label>
+            <label for="brewery" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Brewery:</label>
             <input
               type="text"
               id="brewery"
               formControlName="brewery"
               class="form-control"
-              fxFlex="100%">
+              fxFlex="90%">
           </div>
           <div class="form-group" fxLayoutWrap>
-            <label for="kind" fxFlex="100%">Kind</label>
+            <label for="kind" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Kind:</label>
             <input
               type="text"
               id="kind"
               formControlName="kind"
               class="form-control"
-              fxFlex="100%">
+              fxFlex="90%">
           </div>
           <div class="form-group" fxLayoutWrap>
-            <label for="percentage" fxFlex="100%">Percentage</label>
+            <label for="percentage" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Percentage:</label>
             <input
               type="text"
               id="percentage"
               formControlName="percentage"
               class="form-control"
-              fxFlex="100%">
+              fxFlex="90%">
           </div>
     </form>
 </section>

@@ -1,26 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/">WijBieren</a>
-  <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">WijBieren</a>
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
 
-  <div class="collapse navbar-collapse" [collapse]="isCollapsed" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" [collapse]="isCollapsed" id="navbarSupportedContent">
 
-    <ul class="navbar-nav">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/beers">Beers</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav">
-      <li class="nav-item dropdown" routerLinkActive="active" dropdown>
-        <a style="cursor: pointer;" class="dropdown-toggle" dropdownToggle>Discover</a>
-        <ul class="dropdown-menu" *dropdownMenu>
-          <li><a class="dropdown-item" style="cursor: pointer;" routerLink="/cities" >Cities</a></li>
-          <li><a class="dropdown-item" style="cursor: pointer;" routerLink="/stores" >Stores</a></li>
-        </ul>
-      </li>
-    </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="/beers">Beers</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown" routerLinkActive="active" dropdown>
+          <a style="cursor: pointer;" class="dropdown-toggle" dropdownToggle>Discover</a>
+          <ul class="dropdown-menu" *dropdownMenu>
+            <li><a class="dropdown-item" style="cursor: pointer;" routerLink="/cities" >Cities</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" routerLink="/stores" >Stores</a></li>
+          </ul>
+        </li>
+      </ul>
 
+    </div>
   </div>
 </nav>

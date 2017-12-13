@@ -10,66 +10,70 @@
         formControlName="_id"
         class="form-control"
         >
-      <button
-        type="submit"
-        class="btn btn-success"
-        [disabled]="!cityForm.valid"
+      <div class="button-group">
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!cityForm.valid"
         >Save</button>
-      <button
-        type="button"
-        class="btn btn-danger"
-        (click)="onCancel()"
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="onCancel()"
         >Cancel</button>
+      </div>
+
       <div class="form-group" fxLayoutWrap>
         <label
           for="title"
-          fxFlex="100%">Title</label>
+          fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Title</label>
         <input
           type="text"
           id="title"
           formControlName="title"
           class="form-control"
-          fxFlex="100%">
+          fxFlex="90%">
       </div>
       <div class="form-group" fxLayoutWrap>
-        <label for="imagePath" fxFlex="100%">Image URL</label>
+        <label for="imagePath" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Image URL</label>
         <input
           type="text"
           id="imagePath"
           formControlName="imagePath"
           class="form-control"
           #imagePath
-          fxFlex="100%">
+          fxFlex="90%">
       </div>
       <img [src]="imagePath.value" class="img-edit">
       <div class="form-group" fxLayoutWrap>
-        <label for="description" fxFlex="100%">Description</label>
+        <label for="description" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Description</label>
         <input
           type="text"
           id="description"
           formControlName="description"
           class="form-control"
-          fxFlex="100%">
+          fxFlex="90%">
       </div>
       <div class="form-group" fxLayoutWrap>
-        <label for="province" fxFlex="100%">Province</label>
+        <label for="province" fxFlex="10%" fxFlex.xs="30%" fxFlex.sm="30%">Province</label>
         <input
           type="text"
           id="province"
           formControlName="province"
           class="form-control"
-          fxFlex="100%"
+          fxFlex="90%"
           >
       </div>
       <div class="form-group" fxLayoutWrap>
-        <label for="stores" fxFlex="100%">Add or Delete Stores</label>
+        <label for="stores" fxFlex="10%" fxFlex.xs="40%" fxFlex.sm="40%">Add or Delete Stores</label>
         <sui-multi-select class="selection form-control" [(ngModel)]="selectedOption"
                           [options]="stores"
                           labelField="title"
                           [isSearchable]="true"
                           #select
                           formControlName="stores"
-                          id="stores">
+                          id="stores"
+                          fxFlex="90%">
           <sui-select-option *ngFor="let option of select.filteredOptions" [value]="option">
           </sui-select-option>
         </sui-multi-select>

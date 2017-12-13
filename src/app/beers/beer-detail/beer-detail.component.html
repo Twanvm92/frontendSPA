@@ -1,21 +1,9 @@
 <section class="stores" fxLayout="column">
-  <div>
-    <button type="button" class="btn btn-danger" (click)="onBack()">Go back</button>
-  </div>
-  <div>
-    <img
-      [src]="beer.imagePath"
-      alt="{{ beer.brand }}"
-      class="img-detail"
-      style="max-height: 300px;">
-  </div>
-  <div>
-    <h1>{{ beer.brand }}</h1>
-  </div>
 
   <div
     class="btn-group"
-    appDropdown dropdown>
+    appDropdown dropdown
+    fxLayout fxLayoutGap="10px">
     <button
       type="button"
       class="btn btn-primary dropdown-toggle"
@@ -26,7 +14,32 @@
       <li><a style="cursor: pointer;" (click)="onEditBeer()">Edit Beer</a></li>
       <li><a style="cursor: pointer;" (click)="onDeleteBeer()">Delete Beer</a></li>
     </ul>
+    <button type="button" class="btn btn-danger" (click)="onBack()">Go back</button>
   </div>
-  {{ beer.kind }}
+  <div>
+    <img
+      [src]="beer.imagePath"
+      alt="{{ beer.brand }}"
+      class="img-detail"
+      style="max-height: 300px;">
+  </div>
+  <div class="title">
+    <h1>{{ beer.brand }}</h1>
+  </div>
+
+  <div>
+    <h5>Kind:</h5>
+  </div>
+  <p>{{ beer.kind }}</p>
+
+  <div>
+    <h5>Percentage:</h5>
+  </div>
+  <p>{{beer.percentage}}</p>
+
+  <div>
+    <h5>Brewery:</h5>
+  </div>
+  <p>{{beer.brewery}}</p>
 </section>
 

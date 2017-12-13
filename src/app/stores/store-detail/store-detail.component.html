@@ -1,23 +1,10 @@
 <section class="stores" fxLayout="column">
-  <div>
-    <button type="button" class="btn btn-danger" (click)="onBack()">Go back</button>
-  </div>
-  <div>
-    <img
-      [src]="store.imagePath"
-      alt="{{ store.title }}"
-      class="img-detail"
-      >
-  </div>
-  <div >
-    <h1>{{ store.title }}</h1>
-  </div>
-
 
   <div
     class="btn-group"
     appDropdown dropdown
-    >
+    fxLayout fxLayoutGap="10px"
+  >
     <button
       type="button"
       class="btn btn-primary dropdown-toggle"
@@ -28,7 +15,23 @@
       <li><a style="cursor: pointer;" (click)="onEditStore()">Edit Store</a></li>
       <li><a style="cursor: pointer;" (click)="onDeleteStore()">Delete Store</a></li>
     </ul>
+    <button type="button" class="btn btn-danger" (click)="onBack()">Go back</button>
   </div>
+  <div>
+    <img
+      [src]="store.imagePath"
+      alt="{{ store.title }}"
+      class="img-detail"
+      >
+  </div>
+  <div class="title">
+    <h1>{{ store.title }}</h1>
+  </div>
+
+  <div>
+    <h5>Address:</h5>
+  </div>
+  <p>{{store.address}}</p>
 </section>
 <button type="button" class="btn btn-primary"
         (click)="isCollapsed = !isCollapsed">Show Beers

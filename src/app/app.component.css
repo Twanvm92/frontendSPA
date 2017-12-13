@@ -6,3 +6,16 @@
   height: auto;
   max-width: 100%;
 }
+
+.button-group {
+  margin-bottom: 10px;
+}
+
+section {
+  margin-bottom: 15px;
+}
+
+.title {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}

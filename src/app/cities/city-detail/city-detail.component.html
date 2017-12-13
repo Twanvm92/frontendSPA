@@ -1,5 +1,18 @@
 <section class="stores" fxLayout="column">
-  <div>
+  <div
+    class="btn-group"
+    appDropdown dropdown
+    fxLayout fxLayoutGap="10px">
+    <button
+      type="button"
+      class="btn btn-primary dropdown-toggle"
+      dropdownToggle>
+      Manage City <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" *dropdownMenu>
+      <li><a style="cursor: pointer;" (click)="onEditCity()">Edit City</a></li>
+      <li><a style="cursor: pointer;" (click)="onDeleteCity()">Delete City</a></li>
+    </ul>
     <button type="button" class="btn btn-danger" (click)="onBack()">Go back</button>
   </div>
 
@@ -11,26 +24,21 @@
       style="max-height: 300px;">
   </div>
 
-  <div>
+  <div class="title">
     <h1>{{ city.title }}</h1>
   </div>
 
-
-  <div
-    class="btn-group"
-    appDropdown dropdown>
-    <button
-      type="button"
-      class="btn btn-primary dropdown-toggle"
-      dropdownToggle>
-      Manage City <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" *dropdownMenu>
-      <li><a style="cursor: pointer;" (click)="onEditCity()">Edit City</a></li>
-      <li><a style="cursor: pointer;" (click)="onDeleteCity()">Delete City</a></li>
-    </ul>
+  <div >
+    <h5>Province:</h5>
   </div>
-  {{ city.description }}
+  <p>{{city.province}}</p>
+
+  <div>
+    <h5>Description:</h5>
+  </div>
+  <p>{{ city.description }}</p>
+
+
 </section>
 <button type="button" class="btn btn-primary"
         (click)="isCollapsed = !isCollapsed">Show Stores
