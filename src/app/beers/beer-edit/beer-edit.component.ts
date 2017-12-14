@@ -85,7 +85,7 @@ export class BeerEditComponent implements OnInit {
     this.beerForm = new FormGroup({
       '_id': new FormControl(beerId),
       'brand': new FormControl(beerBrand, [Validators.required,
-        Validators.minLength(3), Validators.maxLength(12)]),
+        Validators.minLength(3), Validators.maxLength(25)]),
       'brewery': new FormControl(beerBrewery, [Validators.required,
         Validators.minLength(5), Validators.maxLength(25)]),
       'kind': new FormControl(beerKind, [Validators.required,
