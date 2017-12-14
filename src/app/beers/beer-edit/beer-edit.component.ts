@@ -36,18 +36,22 @@ export class BeerEditComponent implements OnInit {
   }
 
   onSubmit() {
+    let queryParam: {[key: string]: boolean};
+
     if (this.editMode) {
       this.dataStorageService.updateBeer(this.beerForm.value);
+      queryParam = {'edited': true};
     } else {
       const str = JSON.stringify(this.beerForm.value);
       console.log(str);
       this.dataStorageService.addBeer(this.beerForm.value);
+      queryParam = {'posted': true};
     }
-    this.onCancel();
+    this.onCancel(queryParam);
   }
 
-  onCancel() {
-    this.router.navigate(['beers']);
+  onCancel(queryParam: {[key: string]: boolean}) {
+    this.router.navigate(['beers'], { queryParams: queryParam});
   }
 
   private initForm() {

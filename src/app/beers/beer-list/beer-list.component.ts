@@ -1,9 +1,10 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input, ViewContainerRef} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Beer} from "../../models/beer.model";
 import {Router, ActivatedRoute} from "@angular/router";
 import {DataStorageService} from "../../shared/data-storage.service";
 import {BeerService} from "../beer.service";
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-beer-list',
@@ -18,10 +19,27 @@ export class BeerListComponent implements OnInit, OnDestroy {
   constructor(private beerService: BeerService,
               private router: Router,
               private route: ActivatedRoute,
-              private dataStorageService: DataStorageService) {
+              private dataStorageService: DataStorageService,
+              private toastr: ToastsManager, private vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
+    this.route.queryParams
+      .filter(params => params.edited)
+      .subscribe(params => {
+        console.log(params);
+
+        this.showSuccess('Beer has been edited!');
+      });
+
+    this.route.queryParams
+      .filter(params => params.posted)
+      .subscribe(params => {
+        console.log(params);
+
+        this.showSuccess('Beer has been posted!');
+      });
 
     this.subscription = this.beerService.beersChanged
       .subscribe(
@@ -39,6 +57,10 @@ export class BeerListComponent implements OnInit, OnDestroy {
 
   onNewBeer() {
     this.router.navigate(['new'], {relativeTo: this.route});
+  }
+
+  showSuccess(message: string) {
+    this.toastr.success(message, 'Success!');
   }
 
   ngOnDestroy() {

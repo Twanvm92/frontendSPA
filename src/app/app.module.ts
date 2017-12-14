@@ -33,6 +33,8 @@ import {HttpClientModule} from "@angular/common/http";
 import { LetterFilterComponent } from './shared/letter-filter/letter-filter.component';
 import { LetterFilterItemComponent } from './shared/letter-filter/letter-filter-item/letter-filter-item.component';
 import {FilterDirectiveDirective} from "./shared/filter-directive.directive";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ToastModule} from "ng2-toastr";
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import {FilterDirectiveDirective} from "./shared/filter-directive.directive";
     AlertModule.forRoot(),
     CollapseModule.forRoot(),
     FlexLayoutModule,
-    SuiModule
+    SuiModule,
+    BrowserAnimationsModule,
+    ToastModule.forRoot()
   ],
   providers: [BeerService, DataStorageService, CityService, StoreService],
   bootstrap: [AppComponent]
