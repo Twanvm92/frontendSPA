@@ -33,9 +33,10 @@ import {HttpClientModule} from "@angular/common/http";
 import { LetterFilterComponent } from './shared/letter-filter/letter-filter.component';
 import { LetterFilterItemComponent } from './shared/letter-filter/letter-filter-item/letter-filter-item.component';
 import {FilterDirectiveDirective} from "./shared/filter-directive.directive";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {ToastModule} from "ng2-toastr";
 
+/*
+Deze App is gemaakt door Twan van Maastricht 2113135
+ */
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,9 +72,7 @@ import {ToastModule} from "ng2-toastr";
     AlertModule.forRoot(),
     CollapseModule.forRoot(),
     FlexLayoutModule,
-    SuiModule,
-    BrowserAnimationsModule,
-    ToastModule.forRoot()
+    SuiModule
   ],
   providers: [BeerService, DataStorageService, CityService, StoreService],
   bootstrap: [AppComponent]
